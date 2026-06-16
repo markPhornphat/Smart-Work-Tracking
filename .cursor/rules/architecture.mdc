@@ -1,0 +1,9 @@
+# Architecture Rule
+
+- Read `docs/architecture.md` before proposing code.
+- Enforce Clean Architecture boundaries.
+- Keep business logic out of controllers/adapters.
+- Use feature-based modular design.
+- Prefer composition over inheritance.
+- Keep modules loosely coupled and cohesive.
+- Design interfaces for future microservice extraction.
