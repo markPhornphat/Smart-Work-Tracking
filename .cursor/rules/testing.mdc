@@ -1,0 +1,8 @@
+# Testing Rule
+
+- Write tests for every new behavior.
+- Add unit tests for domain/application logic.
+- Add integration tests for DB/API/integration boundaries.
+- Add E2E tests for critical workflows.
+- Use naming format: `should_<expected>_when_<condition>`.
+- Keep tests deterministic and isolated.

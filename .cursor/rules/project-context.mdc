@@ -1,0 +1,7 @@
+# Project Context Rule
+
+- This repository is currently in architecture/documentation bootstrap phase.
+- Prioritize maintainable structure over rapid feature delivery.
+- Keep implementation aligned with docs in `/docs`.
+- Update docs and templates when introducing new patterns.
+- Prefer API-first and event-ready design decisions.

@@ -1,0 +1,7 @@
+# Security Rule
+
+- Validate and sanitize all external input.
+- Apply authentication and authorization checks by default.
+- Do not hardcode secrets or credentials.
+- Use secure API response patterns (no sensitive internals).
+- Follow OWASP guidance from `docs/coding-standards.md` and `docs/development-workflow.md`.

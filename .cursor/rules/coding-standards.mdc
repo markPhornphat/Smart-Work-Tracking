@@ -1,0 +1,9 @@
+# Coding Standards Rule
+
+- Use TypeScript best practices and explicit types on public APIs.
+- Follow naming conventions in `docs/coding-standards.md`.
+- Apply SOLID principles.
+- Use dependency injection through interfaces/ports.
+- Use repository pattern for persistence access.
+- Avoid duplication; refactor shared logic.
+- Keep functions small and intention-revealing.
