@@ -1,0 +1,49 @@
+---
+description: Forces agents to verify repository knowledge consistency before completing work.
+globs: "*"
+---
+# Knowledge Integrity and Synchronization
+
+Code changes are incomplete until related documentation and AI knowledge bases are synchronized. You MUST verify and update the following before delivering a solution.
+
+## 1. Documentation Synchronization
+
+Every code change must be evaluated for impact on:
+
+- Architecture documentation (`docs/architecture.md`, ADRs)
+- Business rules (`docs/business-rules.md`)
+- API contracts (`docs/api-contracts.md`)
+- Database schema (`docs/database-schema.md`)
+- Development workflows and Testing standards
+- Security documentation
+
+The AI agent must:
+
+1. Detect affected documentation.
+2. Update documentation automatically.
+3. Explain documentation changes in commits and pull requests.
+4. Flag areas requiring human review.
+
+## 2. AI Knowledge Maintenance
+
+Before closing any task, review the following:
+
+- Do existing rules (Cursor rules, Copilot instructions) remain valid?
+- Do existing prompts/skills remain accurate?
+- Does architecture guidance remain accurate?
+- Do examples remain current?
+
+Update affected AI knowledge files when necessary. The repository documentation is the source of truth for future AI agents.
+
+## 3. Mandatory AI-Generated PR Checklist
+
+Future AI-generated pull requests must explicitly verify:
+
+- [ ] Architecture reviewed
+- [ ] Documentation updated
+- [ ] API contracts updated
+- [ ] Database documentation updated
+- [ ] Security implications reviewed
+- [ ] Tests added or updated
+- [ ] AI skills updated if required
+- [ ] ADR created if architecture changed

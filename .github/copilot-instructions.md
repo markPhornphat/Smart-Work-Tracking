@@ -53,29 +53,39 @@ Smart-Work-Tracking is prepared as an AI-first engineering workspace. The immedi
 - Read secrets from secure runtime configuration.
 - Ensure API responses do not leak internals (stack traces, SQL, keys).
 
-## 6) Documentation Requirements
-Before or with implementation changes, update relevant docs in `/docs`:
-- `architecture.md` for design changes
-- `business-rules.md` for domain rules
-- `api-contracts.md` for endpoint changes
-- `database-schema.md` for persistence model changes
-- `roadmap.md` for milestone impact
+## 6) Documentation Requirements & Synchronization
+Code changes are INCOMPLETE until related documentation is updated. Documentation is a first-class deliverable.
+The AI agent must continuously evaluate the impact of code on:
+- `docs/architecture.md` (and ADRs)
+- `docs/business-rules.md`
+- `docs/api-contracts.md`
+- `docs/database-schema.md`
+- `docs/development-workflow.md`
+- `docs/prompts/` (AI skills/prompts)
 
-Use the provided templates and keep docs synchronized with code.
+You must automatically detect affected documentation, synthesize the updates, and explain the document changes within your commits/PRs. Flag areas requiring human review if there's ambiguity. The repository documentation serves as the source of truth for future AI agents.
 
-## 7) Pull Request / Review Checklist
-When generating code, Copilot should self-check:
-1. Are architecture boundaries respected?
-2. Is business logic outside controllers/UI handlers?
-3. Are naming and typing standards met?
-4. Are validations and error handling complete?
-5. Are security controls applied (auth, validation, secrets)?
-6. Are tests added/updated and meaningful?
-7. Are docs updated for behavior/contract/schema changes?
-8. Is duplication avoided and coupling minimized?
+## 7) AI Knowledge Maintenance
+Before completing and closing any task, evaluate our AI governance:
+- Do existing rules in this file or Cursor rules remain valid?
+- Do existing prompts and tools remain accurate?
+- Does architecture guidance remain strictly applicable?
+- Are code examples current?
+Update affected knowledge bases so future AI interactions retain correct context.
 
-## 8) AI Collaboration Protocol
-- Read `docs/architecture.md` first.
-- Then read applicable rule docs (`coding-standards.md`, `security.md`, `testing.mdc`).
-- Propose a short plan before major code edits.
-- Prefer incremental, verifiable changes with tests.
+## 8) Pull Request / Review Checklist
+Create a mandatory checklist for all AI-generated pull requests. You must execute and verify the following:
+- [ ] Architecture reviewed
+- [ ] Documentation updated
+- [ ] API contracts updated
+- [ ] Database documentation updated
+- [ ] Security implications reviewed
+- [ ] Tests added or updated
+- [ ] AI skills updated if required
+- [ ] ADR created if architecture changed
+
+## 9) AI Collaboration Protocol
+- Read `docs/architecture.md` and `.cursor/rules/knowledge-integrity.mdc` first.
+- Treat documentation and instructions as living code; refactor them alongside software components.
+- Propose a short plan before major code edits outlining exactly which documents will need syncing.
+- Ensure the PR Checklist is satisfied.
