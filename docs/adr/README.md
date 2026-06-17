@@ -15,3 +15,4 @@ AI agents and team members act upon these constraints. A new ADR must be introdu
 | ID   | Date       | Title                                     | Status   |
 | ---- | ---------- | ----------------------------------------- | -------- |
 | 0001 | 2026-06-16 | [Record Architecture Decisions](0001-record-architecture-decisions.md) | Accepted |
+| 0002 | 2026-06-16 | [Initial Project Skeleton](0002-initial-project-skeleton.md) | Accepted |
