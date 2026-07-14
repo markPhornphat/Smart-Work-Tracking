@@ -1,5 +1,5 @@
-import { logger } from '../../infrastructure/logger';
-import { AppError } from '../../domain/errors';
+import { logger } from '../infrastructure/logger';
+import { AppError } from '../domain/errors';
 
 export interface ErrorResponse {
   error: {

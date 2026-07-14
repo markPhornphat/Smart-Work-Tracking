@@ -4,6 +4,12 @@
 
 Smart-Work-Tracking will evolve from a modular monolith into a microservice-ready platform while preserving clear boundaries and testability.
 
+## Repository layout
+
+- `backend/` — Node.js + TypeScript API (Clean Architecture feature modules)
+- `frontend/` — Vite + React + TypeScript SPA (proxies API in local dev)
+- `docs/`, `requirements/` — shared product and engineering knowledge
+
 ## Architectural Style
 
 - Clean Architecture
@@ -31,12 +37,12 @@ Smart-Work-Tracking will evolve from a modular monolith into a microservice-read
    - REST/GraphQL endpoints
    - Request validation and response mapping
 
-## Feature Module Template
+## Feature Module Template (backend)
 
-- `feature-name/domain/*`
-- `feature-name/application/*`
-- `feature-name/infrastructure/*`
-- `feature-name/interface/*`
+- `backend/src/feature-name/domain/*`
+- `backend/src/feature-name/application/*`
+- `backend/src/feature-name/infrastructure/*`
+- `backend/src/feature-name/interface/*`
 
 ## Event-Driven Readiness
 

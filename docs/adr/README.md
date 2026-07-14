@@ -16,3 +16,5 @@ AI agents and team members act upon these constraints. A new ADR must be introdu
 | ---- | ---------- | ----------------------------------------- | -------- |
 | 0001 | 2026-06-16 | [Record Architecture Decisions](0001-record-architecture-decisions.md) | Accepted |
 | 0002 | 2026-06-16 | [Initial Project Skeleton](0002-initial-project-skeleton.md) | Accepted |
+| 0003 | 2026-07-14 | [Fastify as HTTP Framework](0003-http-framework-fastify.md) | Accepted |
+| 0004 | 2026-07-14 | [Monorepo Frontend/Backend Separation](0004-monorepo-frontend-backend.md) | Accepted |

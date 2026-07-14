@@ -1,7 +1,9 @@
 # Project Context Rule
 
-- This repository is currently in architecture/documentation bootstrap phase.
+- This repository is a two-package monorepo: `backend/` (Fastify API) and `frontend/` (Vite React UI).
+- Shared docs live at the repo root (`docs/`, `requirements/`, ADRs).
 - Prioritize maintainable structure over rapid feature delivery.
 - Keep implementation aligned with docs in `/docs`.
 - Update docs and templates when introducing new patterns.
 - Prefer API-first and event-ready design decisions.
+- Backend feature modules live under `backend/src/<feature>/{domain,application,infrastructure,interface}`.
