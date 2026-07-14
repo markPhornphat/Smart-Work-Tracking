@@ -142,3 +142,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 /graphify-out
+
+# Prisma generated client (regenerate via npm run generate --prefix database)
+database/generated/

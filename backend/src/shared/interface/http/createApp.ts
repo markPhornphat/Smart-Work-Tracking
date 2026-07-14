@@ -4,6 +4,7 @@ import cors from '@fastify/cors';
 import { mapErrorToResponse } from '../errorMapper';
 import { AppError, ValidationError } from '../../domain/errors';
 import { ZodError } from 'zod';
+import { checkDatabaseConnection } from '../../infrastructure/database/prisma';
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -44,7 +45,10 @@ export async function createApp(): Promise<FastifyInstance> {
     return reply.status(statusCode).send(payload);
   });
 
-  app.get('/health', async () => ({ status: 'ok' }));
+  app.get('/health', async () => {
+    const database = await checkDatabaseConnection();
+    return { status: 'ok', database };
+  });
 
   return app;
 }

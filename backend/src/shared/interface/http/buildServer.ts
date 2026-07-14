@@ -1,9 +1,19 @@
-import { createApp } from './createApp';
-import { registerWorkItemRoutes, type WorkItemsModule } from '../../../work-items/interface/routes';
 import type { FastifyInstance } from 'fastify';
+import fastifyJwt from '@fastify/jwt';
+import { createApp } from './createApp';
+import { env } from '../../infrastructure/config/env';
+import { registerAuthRoutes } from '../../../auth/interface/routes';
+import { registerDomainRoutes } from '../../../domain/interface/routes';
 
-export async function buildServer(): Promise<{ app: FastifyInstance; workItems: WorkItemsModule }> {
+export async function buildServer(): Promise<{ app: FastifyInstance }> {
   const app = await createApp();
-  const workItems = await registerWorkItemRoutes(app);
-  return { app, workItems };
+
+  await app.register(fastifyJwt, {
+    secret: env.JWT_ACCESS_SECRET,
+  });
+
+  await registerAuthRoutes(app);
+  await registerDomainRoutes(app);
+
+  return { app };
 }

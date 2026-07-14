@@ -2,21 +2,33 @@
   "name": "smart-work-tracking",
   "private": true,
   "version": "1.0.0",
-  "description": "Smart-Work-Tracking monorepo (backend API + frontend)",
+  "description": "Smart-Work-Tracking monorepo (backend API + frontend + database)",
   "scripts": {
-    "dev:backend": "npm run dev:server --prefix backend",
-    "dev:frontend": "npm run dev --prefix frontend",
-    "test": "npm test --prefix backend",
-    "test:backend": "npm test --prefix backend",
-    "lint": "npm run lint --prefix backend && npm run lint --prefix frontend",
-    "lint:backend": "npm run lint --prefix backend",
-    "lint:frontend": "npm run lint --prefix frontend",
-    "build": "npm run build --prefix backend && npm run build --prefix frontend",
-    "build:backend": "npm run build --prefix backend",
-    "build:frontend": "npm run build --prefix frontend",
-    "start:backend": "npm start --prefix backend"
+    "dev": "node scripts/dev.mjs",
+    "dev:all": "node scripts/dev.mjs",
+    "start:all": "node scripts/dev.mjs",
+    "dev:backend": "pnpm --filter @smart-work-tracking/backend dev:server",
+    "dev:frontend": "pnpm --filter @smart-work-tracking/frontend dev",
+    "test": "pnpm --filter @smart-work-tracking/backend test",
+    "test:backend": "pnpm --filter @smart-work-tracking/backend test",
+    "lint": "pnpm --filter @smart-work-tracking/backend lint && pnpm --filter @smart-work-tracking/frontend lint",
+    "lint:backend": "pnpm --filter @smart-work-tracking/backend lint",
+    "lint:frontend": "pnpm --filter @smart-work-tracking/frontend lint",
+    "build": "pnpm --filter @smart-work-tracking/backend build && pnpm --filter @smart-work-tracking/frontend build",
+    "build:backend": "pnpm --filter @smart-work-tracking/backend build",
+    "build:frontend": "pnpm --filter @smart-work-tracking/frontend build",
+    "start:backend": "pnpm --filter @smart-work-tracking/backend start",
+    "db:up": "docker compose -f database/docker/docker-compose.yml --env-file database/docker/.env up -d",
+    "db:down": "docker compose -f database/docker/docker-compose.yml --env-file database/docker/.env down",
+    "db:migrate": "pnpm --filter @smart-work-tracking/database migrate:deploy",
+    "db:migrate:dev": "pnpm --filter @smart-work-tracking/database migrate:dev",
+    "db:seed": "pnpm --filter @smart-work-tracking/database seed",
+    "db:studio": "pnpm --filter @smart-work-tracking/database studio",
+    "db:generate": "pnpm --filter @smart-work-tracking/database generate"
   },
   "engines": {
-    "node": ">=20"
-  }
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.15.0"
 }

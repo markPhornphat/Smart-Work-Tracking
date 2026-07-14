@@ -17,31 +17,25 @@
     "type": "git",
     "url": "git+https://github.com/markPhornphat/Smart-Work-Tracking.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/markPhornphat/Smart-Work-Tracking/issues"
-  },
-  "homepage": "https://github.com/markPhornphat/Smart-Work-Tracking#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^25.9.3",
-    "@typescript-eslint/eslint-plugin": "^8.61.1",
-    "@typescript-eslint/parser": "^8.61.1",
     "@vitest/coverage-v8": "^4.1.9",
     "eslint": "^10.5.0",
     "prettier": "^3.8.4",
-    "ts-node": "^10.9.2",
     "tsup": "^8.5.1",
     "tsx": "^4.23.1",
-    "typescript": "^6.0.3",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.61.1",
     "vitest": "^4.1.9"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
+    "@fastify/jwt": "^9.1.0",
+    "@smart-work-tracking/database": "workspace:*",
+    "argon2": "^0.43.0",
     "dotenv": "^17.4.2",
     "fastify": "^5.10.0",
     "pino": "^10.3.1",

@@ -1,63 +1,67 @@
 # API Contracts
 
 ## Conventions
+
 - Base path: `/api/v1`
-- JSON request/response bodies
-- Errors use envelope: `{ "error": { "code", "message", "details?", "traceId?" } }`
-- Clients may send `x-trace-id`; server echoes it on errors and generates one when absent
+- JSON bodies
+- Errors: `{ "error": { "code", "message", "details?", "traceId?" } }`
+- Authenticated requests: `Authorization: Bearer <accessToken>`
+- Pagination (list endpoints): `?page=&pageSize=` → `{ items, total, page, pageSize }`
 
-## Endpoints
+## Auth (public unless noted)
 
-### Health
+| Method | Path | Notes |
+|--------|------|-------|
+| POST | `/api/v1/auth/register` | `{ email, password, displayName? }` |
+| POST | `/api/v1/auth/login` | `{ email, password }` → tokens + user |
+| POST | `/api/v1/auth/refresh` | `{ refreshToken }` |
+| POST | `/api/v1/auth/logout` | Bearer required; optional `{ refreshToken }` |
+| GET | `/api/v1/auth/me` | Bearer required |
 
-- **Method/Path:** `GET /health`
-- **Auth:** None
-- **Response 200:** `{ "status": "ok" }`
+## Health
 
-### Create Work Item
+- `GET /health` — public `{ status, database }`
 
-- **Method/Path:** `POST /api/v1/work-items`
-- **Auth:** None (thin slice)
-- **Request:**
-  ```json
-  { "projectId": "proj_default", "title": "Implement login" }
-  ```
-- **Response 201:**
-  ```json
-  {
-    "id": "wi_...",
-    "projectId": "proj_default",
-    "title": "Implement login",
-    "status": "todo",
-    "createdAt": "2026-07-14T00:00:00.000Z",
-    "updatedAt": "2026-07-14T00:00:00.000Z"
-  }
-  ```
-- **Errors:** `400 VALIDATION_ERROR`, `404 NOT_FOUND` (unknown project)
+## Domain (Bearer required)
 
-### List Work Items
+| Area | Endpoints |
+|------|-----------|
+| Organizations | `GET/POST /organizations`, `GET /organizations/:id` |
+| Workspaces | `GET/POST /workspaces?organizationId=`, `GET /workspaces/:id` |
+| Templates | `GET /templates` |
+| Projects | `GET/POST /projects`, `GET/PATCH/DELETE /projects/:id` (see below) |
+| Workflow | `GET /projects/:projectId/workflow` |
+| Statuses | `POST /projects/:projectId/statuses`, `PATCH/DELETE /statuses/:id`, `PUT …/statuses/reorder` |
+| Sections | `GET/POST /projects/:projectId/sections`, `PATCH/DELETE /sections/:id` |
+| Tags | `GET/POST /projects/:projectId/tags`, `PATCH/DELETE /tags/:id` |
+| Tasks | `GET/POST /tasks`, `GET/PATCH/DELETE /tasks/:id` |
+| Comments | `GET/POST /tasks/:taskId/comments` |
+| Search | `GET /search?q=` |
 
-- **Method/Path:** `GET /api/v1/work-items`
-- **Query:** `projectId` (optional)
-- **Response 200:** `{ "items": [ /* WorkItem */ ] }`
+### Projects (Phase 2.1)
 
-### Get Work Item
+| Method | Path | Notes |
+|--------|------|-------|
+| GET | `/api/v1/projects` | Query: `workspaceId` (required), `archived` (`true`/`false`), `favorite` (`true`/`false`). Excludes soft-deleted. Boolean strings are parsed correctly (`false` is not coerced to true). |
+| POST | `/api/v1/projects` | Body: `{ workspaceId, name, key, description?, templateKey? }`. Applies template (`blank` default). |
+| GET | `/api/v1/projects/:id` | Single project |
+| PATCH | `/api/v1/projects/:id` | Body fields (all optional): `name`, `description`, `isFavorite`, `isArchived`, `lastViewType` |
+| DELETE | `/api/v1/projects/:id` | Soft delete (`deletedAt`) |
 
-- **Method/Path:** `GET /api/v1/work-items/:id`
-- **Response 200:** WorkItem object
-- **Errors:** `404 NOT_FOUND`
+`isFavorite` is **project-scoped** (not per-user).
 
-### Update Work Item Status
+## Demo credentials (seed)
 
-- **Method/Path:** `PATCH /api/v1/work-items/:id/status`
-- **Request:**
-  ```json
-  { "status": "in_progress" }
-  ```
-- **Response 200:** Updated WorkItem
-- **Errors:** `400 VALIDATION_ERROR`, `400 DOMAIN_RULE_VIOLATION`, `404 NOT_FOUND`
+- Email: `admin@smartwork.local`
+- Password: `Admin123!`
+- Orgs: `demo-org`, `partner-org`
+- Workspaces: `demo-workspace`, `marketing-workspace` (demo-org), `partner-workspace` (partner-org)
+- Projects: `SWENG`, `MKTG`, `OPS`
 
-## Design Rules
-- Prefer explicit resource naming
-- Keep payloads lean
-- Version contracts before breaking changes
+## Frontend routes (Phase 2.1)
+
+| Path | Purpose |
+|------|---------|
+| `/login` | Sign in |
+| `/projects` | Project list (active / favorites / archived) |
+| `/projects/:projectId` | Work tracking for a project |

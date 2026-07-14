@@ -1,0 +1,36 @@
+{
+  "name": "@smart-work-tracking/database",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PostgreSQL + Prisma schema, migrations, and seeds for Smart-Work-Tracking",
+  "main": "./generated/client/index.js",
+  "types": "./generated/client/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./generated/client/index.d.ts",
+      "default": "./generated/client/index.js"
+    }
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:reset": "prisma migrate reset",
+    "seed": "prisma db seed",
+    "studio": "prisma studio",
+    "format": "prisma format",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.0",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3"
+  }
+}

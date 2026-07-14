@@ -1,56 +1,74 @@
 # Smart-Work-Tracking
 
-Monorepo for a work-tracking platform:
+Monorepo for an enterprise work-tracking platform (pnpm workspaces).
 
 | Path | Package | Role |
 |------|---------|------|
-| [`backend/`](backend/) | `@smart-work-tracking/backend` | Fastify API (Clean Architecture) |
-| [`frontend/`](frontend/) | `@smart-work-tracking/frontend` | Vite + React + TypeScript UI |
-| [`docs/`](docs/) | — | Architecture, ADRs, API contracts |
-| [`requirements/`](requirements/) | — | Product & technical requirements |
+| [`backend/`](backend/) | `@smart-work-tracking/backend` | Fastify API + JWT auth |
+| [`frontend/`](frontend/) | `@smart-work-tracking/frontend` | Vite + React + TanStack Router/Query UI |
+| [`database/`](database/) | `@smart-work-tracking/database` | PostgreSQL + Prisma |
+| [`docs/`](docs/) | — | ADRs, API, database knowledge |
 
 ## Prerequisites
+
 - Node.js 20+
+- **pnpm 9+**
+- Docker (Postgres)
 
 ## Setup
 
 ```bash
-npm install --prefix backend
-npm install --prefix frontend
+pnpm install
+
+docker compose -f database/docker/docker-compose.yml --env-file database/docker/.env up -d
+
+cp database/.env.example database/.env
 cp backend/.env.example backend/.env
+
+pnpm db:migrate:dev   # or: pnpm --filter @smart-work-tracking/database migrate:dev
+pnpm db:seed
 ```
 
 ## Develop
 
-```bash
-# terminal 1 — API on :3000
-npm run dev:backend
+Start **database + backend + frontend** with one command:
 
-# terminal 2 — UI on :5173 (proxies /api and /health to the API)
-npm run dev:frontend
+```bash
+pnpm dev
+# aliases: pnpm dev:all   |   pnpm start:all
+# Windows PowerShell: .\scripts\dev.ps1
 ```
 
-## Scripts (from repo root)
+This will:
+
+1. `docker compose up -d` for Postgres and wait until healthy
+2. start the API on `:3000`
+3. start the UI on `:5173`
+
+Ctrl+C stops the API/UI; Postgres keeps running (`pnpm db:down` to stop it).
+
+Or start services separately:
+
+```bash
+pnpm db:up
+pnpm dev:backend    # :3000
+pnpm dev:frontend   # :5173
+```
+
+## Demo login
+
+- `admin@smartwork.local` / `Admin123!`
+- UI routes: `/login`, `/projects`, `/projects/:projectId`
+- Seed includes two orgs and multiple workspaces/projects for switching
+
+## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev:backend` | API hot reload |
-| `npm run dev:frontend` | Vite UI |
-| `npm run test` | Backend Vitest suite |
-| `npm run build` | Build backend + frontend |
-| `npm run start:backend` | Run built API |
-| `npm run lint` | Lint both workspaces |
+| `pnpm dev` / `dev:all` / `start:all` | Start DB + backend + frontend |
+| `pnpm dev:backend` / `pnpm dev:frontend` | Local servers only |
+| `pnpm test` | Backend Vitest |
+| `pnpm build` | Build API + UI |
+| `pnpm db:up` / `db:migrate` / `db:seed` | Database ops |
 
-## Smoke checks
-
-```bash
-curl http://localhost:3000/health
-curl -X POST http://localhost:3000/api/v1/work-items \
-  -H "content-type: application/json" \
-  -d "{\"projectId\":\"proj_default\",\"title\":\"First item\"}"
-```
-
-Seeded project id: `proj_default`.
-
-## Architecture
-See [docs/architecture.md](docs/architecture.md), [docs/api-contracts.md](docs/api-contracts.md), and ADRs under [docs/adr/](docs/adr/).
+See [docs/api-contracts.md](docs/api-contracts.md) and [docs/database/Development-Setup.md](docs/database/Development-Setup.md).

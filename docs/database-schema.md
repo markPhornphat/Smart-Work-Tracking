@@ -1,32 +1,32 @@
 # Database Schema
 
-> Runtime for the Phase 1 thin slice uses **in-memory** repositories. This document is the logical target model for a future persistence ADR.
+> **Source of truth:** Prisma schema at [`database/prisma/schema.prisma`](../database/prisma/schema.prisma) and the AI/ops knowledge base under [`docs/database/`](database/).
 
-## Entities
+## Current runtime note
 
-### Project
+The Fastify thin slice still uses **in-memory** Work Items for HTTP demos. Persistence (PostgreSQL + Prisma) is provisioned and seeded in this phase; domain APIs will switch to Prisma repositories in Phase 2.
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | string (PK) | e.g. `proj_default` |
-| name | string | required |
-| status | string | `active` \| `archived` |
-| created_at | timestamptz | |
-| updated_at | timestamptz | |
+## Logical hierarchy
 
-### WorkItem
+```text
+Organization
+  └── Workspace
+        └── Project
+              ├── Workflow / WorkflowStatus
+              ├── Section
+              ├── Task (self-parent for subtasks)
+              ├── Tag
+              ├── CustomField / CustomFieldValue
+              └── Templates (via ProjectTemplate)
+```
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | string (PK) | |
-| project_id | string (FK → Project.id) | required |
-| title | string | required, non-empty |
-| status | string | `todo` \| `in_progress` \| `done` |
-| created_at | timestamptz | |
-| updated_at | timestamptz | |
+See [docs/database/ERD.md](database/ERD.md) and [docs/database/Architecture.md](database/Architecture.md).
 
-## Relationships
-- Project 1—* WorkItem
+## Transitional thin-slice model (API only)
 
-## Seed (thin slice)
-- Project `proj_default` / name `Default Project` / status `active` is seeded in memory so Work Item APIs can run without a Project API.
+| Entity | Notes |
+|--------|-------|
+| Project | In-memory seed `proj_default` |
+| WorkItem | Maps conceptually to future `Task` |
+
+Do not extend the in-memory model; implement new features against Prisma entities.
