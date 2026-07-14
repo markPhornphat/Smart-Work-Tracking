@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Technology palette (https://www.color-hex.com/color-palette/12616)
+  #d4f0fc  #89d6fb  #02a9f7  #02577a  #01303f
+*/
+
 @theme inline {
   --font-sans: 'Source Sans 3', ui-sans-serif, sans-serif;
   --font-display: 'Fraunces', ui-serif, Georgia, serif;
@@ -36,36 +41,41 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-palette-ice: #d4f0fc;
+  --color-palette-sky: #89d6fb;
+  --color-palette-azure: #02a9f7;
+  --color-palette-deep: #02577a;
+  --color-palette-ink: #01303f;
 }
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.985 0.008 95);
-  --foreground: oklch(0.22 0.02 160);
-  --card: oklch(0.995 0.004 95);
-  --card-foreground: oklch(0.22 0.02 160);
-  --popover: oklch(0.995 0.004 95);
-  --popover-foreground: oklch(0.22 0.02 160);
-  --primary: oklch(0.42 0.08 168);
-  --primary-foreground: oklch(0.98 0.01 168);
-  --secondary: oklch(0.94 0.015 160);
-  --secondary-foreground: oklch(0.28 0.03 160);
-  --muted: oklch(0.95 0.01 95);
-  --muted-foreground: oklch(0.45 0.02 160);
-  --accent: oklch(0.93 0.03 168);
-  --accent-foreground: oklch(0.28 0.04 168);
-  --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.88 0.015 160);
-  --input: oklch(0.88 0.015 160);
-  --ring: oklch(0.5 0.07 168);
-  --sidebar: oklch(0.27 0.035 168);
-  --sidebar-foreground: oklch(0.95 0.01 160);
-  --sidebar-primary: oklch(0.72 0.1 168);
-  --sidebar-primary-foreground: oklch(0.18 0.03 168);
-  --sidebar-accent: oklch(0.34 0.04 168);
-  --sidebar-accent-foreground: oklch(0.96 0.01 160);
-  --sidebar-border: oklch(0.36 0.03 168);
-  --sidebar-ring: oklch(0.65 0.08 168);
+  --background: #f4fbfe;
+  --foreground: #01303f;
+  --card: #ffffff;
+  --card-foreground: #01303f;
+  --popover: #ffffff;
+  --popover-foreground: #01303f;
+  --primary: #02a9f7;
+  --primary-foreground: #01303f;
+  --secondary: #89d6fb;
+  --secondary-foreground: #01303f;
+  --muted: #d4f0fc;
+  --muted-foreground: #02577a;
+  --accent: #d4f0fc;
+  --accent-foreground: #01303f;
+  --destructive: #dc2626;
+  --border: #89d6fb;
+  --input: #89d6fb;
+  --ring: #02a9f7;
+  --sidebar: #01303f;
+  --sidebar-foreground: #d4f0fc;
+  --sidebar-primary: #02a9f7;
+  --sidebar-primary-foreground: #01303f;
+  --sidebar-accent: #02577a;
+  --sidebar-accent-foreground: #d4f0fc;
+  --sidebar-border: #02577a;
+  --sidebar-ring: #89d6fb;
 }
 
 @layer base {
@@ -81,5 +91,9 @@
 
   body {
     @apply m-0 bg-background font-sans text-foreground antialiased;
+    background-image:
+      radial-gradient(ellipse at top, rgb(212 240 252 / 0.9), transparent 55%),
+      linear-gradient(160deg, #f4fbfe 0%, #d4f0fc 48%, #e8f7fd 100%);
+    background-attachment: fixed;
   }
 }

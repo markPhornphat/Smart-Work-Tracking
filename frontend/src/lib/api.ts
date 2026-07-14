@@ -46,6 +46,8 @@ export type Workspace = {
   organizationId: string;
 };
 
+export type ProjectViewType = 'BACKLOG' | 'KANBAN' | 'LIST' | 'TABLE' | 'CALENDAR' | 'TIMELINE' | 'DASHBOARD';
+
 export type Project = {
   id: string;
   name: string;
@@ -55,7 +57,7 @@ export type Project = {
   isFavorite: boolean;
   isArchived: boolean;
   templateId?: string | null;
-  lastViewType?: string;
+  lastViewType?: ProjectViewType | string;
 };
 
 export type ProjectTemplate = {
@@ -66,12 +68,51 @@ export type ProjectTemplate = {
   department: string | null;
 };
 
+export type Tag = {
+  id: string;
+  projectId: string;
+  name: string;
+  color: string;
+};
+
+export type WorkflowStatus = {
+  id: string;
+  name: string;
+  color: string;
+  sortOrder: number;
+  isDone: boolean;
+  isArchived: boolean;
+};
+
+export type Workflow = {
+  id: string;
+  projectId: string;
+  name: string;
+  statuses: WorkflowStatus[];
+};
+
+export type Section = {
+  id: string;
+  projectId: string;
+  name: string;
+  sortOrder: number;
+  isCollapsed: boolean;
+};
+
 export type Task = {
   id: string;
   title: string;
+  description?: string | null;
   statusId: string | null;
+  sectionId?: string | null;
   priority: string;
   taskNumber?: number;
+  dueDate?: string | null;
+  startDate?: string | null;
+  status?: WorkflowStatus | null;
+  section?: Section | null;
+  tags?: Tag[];
+  assignee?: { id: string; displayName: string; email: string } | null;
 };
 
 export function getAccessToken(): string | null {

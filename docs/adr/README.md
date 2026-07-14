@@ -23,3 +23,4 @@ AI agents and team members act upon these constraints. A new ADR must be introdu
 | 0007 | 2026-07-14 | [JWT Authentication Foundation](0007-jwt-auth-foundation.md) | Accepted |
 | 0008 | 2026-07-14 | [pnpm Workspaces](0008-pnpm-workspaces.md) | Accepted |
 | 0009 | 2026-07-14 | [TanStack Router + Query Frontend Shell](0009-tanstack-router-query-frontend.md) | Accepted |
+| 0010 | 2026-07-14 | [Technology Palette + Multi-View Work Board](0010-technology-palette-multi-view.md) | Accepted |

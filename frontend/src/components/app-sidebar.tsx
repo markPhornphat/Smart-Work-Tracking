@@ -133,13 +133,13 @@ export function AppSidebar({
             Context
           </p>
           <div className="space-y-1.5">
-            <label className="text-xs text-sidebar-foreground/60">Organization</label>
+            <label className="text-xs text-[#89d6fb]">Organization</label>
             <Select
               value={organizationId ?? undefined}
               onValueChange={setOrganizationId}
               disabled={!organizations.length}
             >
-              <SelectTrigger className="h-9 border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground">
+              <SelectTrigger className="h-9 border-[#89d6fb] bg-[#02577a] text-[#d4f0fc] [&>svg]:text-[#d4f0fc]">
                 <SelectValue placeholder="Select org" />
               </SelectTrigger>
               <SelectContent>
@@ -152,13 +152,13 @@ export function AppSidebar({
             </Select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs text-sidebar-foreground/60">Workspace</label>
+            <label className="text-xs text-[#89d6fb]">Workspace</label>
             <Select
               value={workspaceId ?? undefined}
               onValueChange={setWorkspaceId}
               disabled={!workspaces.length}
             >
-              <SelectTrigger className="h-9 border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground">
+              <SelectTrigger className="h-9 border-[#89d6fb] bg-[#02577a] text-[#d4f0fc] [&>svg]:text-[#d4f0fc]">
                 <SelectValue placeholder="Select workspace" />
               </SelectTrigger>
               <SelectContent>
@@ -361,8 +361,8 @@ function ProjectGroup({
                 <Badge
                   variant="outline"
                   className={cn(
-                    'border-sidebar-border bg-transparent font-mono text-[10px]',
-                    active && 'border-sidebar-primary-foreground/40 text-sidebar-primary-foreground',
+                    'border-[#89d6fb] bg-[#02577a] font-mono text-[10px] text-[#d4f0fc]',
+                    active && 'border-[#01303f]/30 bg-white/90 text-[#01303f]',
                   )}
                 >
                   {project.key}

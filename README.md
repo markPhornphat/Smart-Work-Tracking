@@ -59,7 +59,9 @@ pnpm dev:frontend   # :5173
 
 - `admin@smartwork.local` / `Admin123!`
 - UI routes: `/login`, `/projects`, `/projects/:projectId`
+- Work board views: **Table** (customizable columns), **Backlog**, **Kanban**
 - Seed includes two orgs and multiple workspaces/projects for switching
+- Brand colors: [Technology palette 12616](https://www.color-hex.com/color-palette/12616)
 
 ## Scripts
 

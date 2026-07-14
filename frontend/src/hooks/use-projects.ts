@@ -82,6 +82,7 @@ export function useUpdateProject() {
       description?: string | null;
       isFavorite?: boolean;
       isArchived?: boolean;
+      lastViewType?: string;
     }) => {
       const { id, ...body } = input;
       return api<Project>(`/api/v1/projects/${id}`, {

@@ -30,6 +30,13 @@
 - [x] Organization switching
 - [x] TanStack Router + Query authenticated shell
 
+## Phase 2.1 UX polish (views + tags + table)
+- [x] Technology color palette (color-hex 12616) across the app
+- [x] Task **Table** view with user-renamable / show-hide columns
+- [x] View switcher: Table / Backlog / Kanban (persists `lastViewType`)
+- [x] Tag create / edit / delete + attach tags on tasks
+- [x] Sidebar contrast for project key badges and selectors
+
 ## Phase 2.2: Workflow Engine
 - [ ] Create / duplicate / rename / import / export / delete workflows
 - [ ] Reorder statuses; status metadata (name, color, order, category, archived)
@@ -38,10 +45,12 @@
 - [ ] Built-in department templates configuring statuses, sections, tags, views, fields
 
 ## Phase 2.4: Backlog
-- [ ] Sections, DnD, collapse, infinite scroll, quick add, inline edit, multi-select, bulk actions
+- [x] Section-grouped Backlog view (collapse sections)
+- [ ] DnD, infinite scroll, quick add, inline edit, multi-select, bulk actions
 
 ## Phase 2.5: Kanban
-- [ ] Dynamic columns from workflow; WIP; collapse/reorder; swimlanes-ready
+- [x] Dynamic columns from workflow statuses + move via status select
+- [ ] Drag-and-drop; WIP; column collapse/reorder; swimlanes-ready
 
 ## Phase 2.6: Task Drawer
 - [ ] Full task detail drawer without leaving the page

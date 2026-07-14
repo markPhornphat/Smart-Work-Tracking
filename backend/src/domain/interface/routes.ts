@@ -444,9 +444,23 @@ export async function registerDomainRoutes(app: FastifyInstance): Promise<void> 
         where,
         ...paginate(query.page, query.pageSize),
         orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+        include: {
+          status: true,
+          section: true,
+          tags: { include: { tag: true } },
+          assignee: { select: { id: true, displayName: true, email: true } },
+        },
       }),
     ]);
-    return pageResult(items, total, query.page, query.pageSize);
+    return pageResult(
+      items.map((task) => ({
+        ...task,
+        tags: task.tags.map((tt) => tt.tag).filter((t) => !t.deletedAt),
+      })),
+      total,
+      query.page,
+      query.pageSize,
+    );
   });
 
   app.post('/api/v1/tasks', async (request, reply) => {
@@ -522,28 +536,54 @@ export async function registerDomainRoutes(app: FastifyInstance): Promise<void> 
         estimatedHours: z.number().optional(),
         actualHours: z.number().optional(),
         sortOrder: z.number().int().optional(),
+        tagIds: z.array(z.string().uuid()).optional(),
       })
       .parse(request.body);
+
+    const { tagIds, ...fields } = body;
 
     const updated = await prisma.task.update({
       where: { id: task.id },
       data: {
-        ...body,
+        ...fields,
         dueDate:
-          body.dueDate === undefined
+          fields.dueDate === undefined
             ? undefined
-            : body.dueDate
-              ? new Date(body.dueDate)
+            : fields.dueDate
+              ? new Date(fields.dueDate)
               : null,
         startDate:
-          body.startDate === undefined
+          fields.startDate === undefined
             ? undefined
-            : body.startDate
-              ? new Date(body.startDate)
+            : fields.startDate
+              ? new Date(fields.startDate)
               : null,
       },
     });
-    return updated;
+
+    if (tagIds) {
+      await prisma.taskTag.deleteMany({ where: { taskId: task.id } });
+      if (tagIds.length > 0) {
+        await prisma.taskTag.createMany({
+          data: tagIds.map((tagId) => ({ taskId: task.id, tagId })),
+          skipDuplicates: true,
+        });
+      }
+    }
+
+    const full = await prisma.task.findUniqueOrThrow({
+      where: { id: updated.id },
+      include: {
+        status: true,
+        section: true,
+        tags: { include: { tag: true } },
+        assignee: { select: { id: true, displayName: true, email: true } },
+      },
+    });
+    return {
+      ...full,
+      tags: full.tags.map((tt) => tt.tag).filter((t) => !t.deletedAt),
+    };
   });
 
   app.delete<{ Params: { id: string } }>('/api/v1/tasks/:id', async (request) => {

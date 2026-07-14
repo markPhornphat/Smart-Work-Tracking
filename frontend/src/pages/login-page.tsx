@@ -17,7 +17,7 @@ export function LoginPage() {
     try {
       await login.mutateAsync({ email, password });
     } catch {
-      /* toast/error via mutation state */
+      /* mutation error state */
     }
   }
 
@@ -25,34 +25,36 @@ export function LoginPage() {
     <div className="relative flex min-h-svh items-center justify-center overflow-hidden px-4 py-10">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.88_0.05_168)_0%,_transparent_55%),linear-gradient(160deg,_oklch(0.97_0.02_95)_0%,_oklch(0.93_0.03_168)_45%,_oklch(0.88_0.04_200)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#d4f0fc_0%,_transparent_55%),linear-gradient(160deg,_#f4fbfe_0%,_#89d6fb_45%,_#02577a_100%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-teal-700/10 blur-3xl motion-safe:animate-pulse"
+        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#02a9f7]/25 blur-3xl motion-safe:animate-pulse"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-stone-800/10 blur-3xl"
+        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-[#01303f]/30 blur-3xl"
       />
 
       <div className="relative z-10 grid w-full max-w-5xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div className="space-y-4 text-center lg:text-left">
-          <p className="font-display text-4xl font-bold tracking-tight text-teal-900 sm:text-5xl lg:text-6xl">
+          <p className="font-display text-4xl font-bold tracking-tight text-[#01303f] sm:text-5xl lg:text-6xl lg:text-white">
             Smart-Work-Tracking
           </p>
-          <h1 className="text-xl font-semibold text-stone-800 sm:text-2xl">
+          <h1 className="text-xl font-semibold text-[#01303f] sm:text-2xl lg:text-[#d4f0fc]">
             Sign in to your workspace
           </h1>
-          <p className="mx-auto max-w-md text-pretty text-muted-foreground lg:mx-0">
+          <p className="mx-auto max-w-md text-pretty text-[#02577a] lg:mx-0 lg:text-[#d4f0fc]/85">
             Plan projects, track tasks, and keep delivery moving across your organization.
           </p>
         </div>
 
-        <Card className="border-stone-200/80 bg-white/90 shadow-xl backdrop-blur motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500">
+        <Card className="border-[#89d6fb] bg-white/95 shadow-xl backdrop-blur motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500">
           <CardHeader>
-            <CardTitle>Welcome back</CardTitle>
-            <CardDescription>Use your organization credentials to continue.</CardDescription>
+            <CardTitle className="text-[#01303f]">Welcome back</CardTitle>
+            <CardDescription className="text-[#02577a]">
+              Use your organization credentials to continue.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={onSubmit}>
@@ -87,7 +89,7 @@ export function LoginPage() {
                 {login.isPending ? <Loader2 className="animate-spin" /> : null}
                 {login.isPending ? 'Signing in…' : 'Sign in'}
               </Button>
-              <p className="text-center text-xs text-muted-foreground">
+              <p className="text-center text-xs text-[#02577a]">
                 Demo: admin@smartwork.local / Admin123!
               </p>
             </form>
